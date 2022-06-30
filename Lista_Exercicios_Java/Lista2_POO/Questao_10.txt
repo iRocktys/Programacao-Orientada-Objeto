@@ -1,0 +1,114 @@
+/*
+a) Leandro Martins Tosta, Gustavo Geovane Tamião Souza e Guilherme de Almeida do Carmo.
+
+b) Postagem anterior correta.
+
+c) Nova funcionalidade: Acrescenta o periodo do estudante.
+
+d) Entrada:
+	- Joaozinho
+	- 123456789-10
+	- 1234567
+	- Engenharia da Computacao
+	- joaozinho@alunos.utfpr.edu.br
+	- POCO4A
+	- 5
+	- 100
+Saida:
+	Nome: Joaozinho / CPF: 12345678910 / RA: 1234567 / CURSO: Engenharia da Computacao / EMAIL: joaozinho@alunos.utfpr.edu.br / TURMA: POCO4A / PERIODO: 5 / HORAS DE ESTAGIO CUMPRIDAS: 100 / HORAS DE ESTAGIO RESTANTES: 300
+
+*/
+
+//Classe Principal
+package Questao_10;
+
+import java.util.Scanner;
+
+public class Principal {
+
+	public static void main(String[] args) {
+		System.out.println("Insira os dados!");
+		System.out.println("Nome, CPF, RA, Curso , Email, turma, periodo e horas de estagio respectivamente: ");
+		Scanner entrada = new Scanner(System.in);
+
+		String nome = entrada.nextLine();
+		String cpf = entrada.nextLine();
+		String ra = entrada.nextLine();
+		VerificaRa(ra);
+		String curso = entrada.nextLine();
+		String email = entrada.nextLine();
+		String turma = entrada.nextLine();
+		int periodo = Integer.parseInt(entrada.nextLine());
+		int estagio = Integer.parseInt(entrada.nextLine());
+
+		Estudante et = new Estudante(nome, cpf, ra, curso, email, turma, periodo, estagio);
+		System.out.println(et);
+	}
+
+	public static void VerificaRa(String Ra){
+		int valido;
+	
+		valido = Ra.length();
+	
+		if(valido != 7){
+			System.err.println("=======================");
+			System.err.println(" ERRO: RA INVALIDO!");
+			System.err.println("=======================");
+			System.exit(1);
+		}//if
+	}//fim VerificaRa
+}
+
+//Classe Estudante
+package Questao_10;
+
+public class Estudante {
+	private String nome;
+	private String cpf;
+	private String ra;
+	private String curso;
+	private String email;
+	private String turma;
+	private int periodo;
+	private int horas_estagio;
+
+	public Estudante(String nome, String cpf, String ra, String curso, String email,String turma, int periodo, int horas_estagio) {
+		this.nome = nome;
+		this.cpf = cpf;
+		this.ra = ra;
+		this.curso = curso;
+		this.email = email;
+		this.turma = turma;
+		this.periodo = periodo;
+		setHorasEstagio(horas_estagio);
+	}
+
+	public String toString(){
+	return "Nome: " + this.nome +
+	" / CPF: " + this.cpf +
+	" / RA: " + this.ra +
+	" / CURSO: " + this.curso +
+	" / EMAIL: " + this.email+
+	" / TURMA: "+this.turma+
+	" / PERIODO: "+ this.periodo+
+	" / HORAS DE ESTAGIO CUMPRIDAS: "+ getHorasEstagio()+
+	" / HORAS DE ESTAGIO RESTANTES: "+ getEstagioRestante();
+	}
+
+	public void addHorasEstagio(int horas_estagio) {
+	setHorasEstagio(getHorasEstagio() + horas_estagio);
+	}
+
+	public int getEstagioRestante(){
+	return (400 - getHorasEstagio());
+	}
+
+	public void setHorasEstagio(int horas_estagio) {
+	this.horas_estagio = horas_estagio;
+	}
+
+	public int getHorasEstagio() {
+	return this.horas_estagio;
+	}
+}
+
